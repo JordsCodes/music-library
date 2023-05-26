@@ -18,13 +18,17 @@ Navigate to the root directory of the project in your terminal and initialise no
 
 `npm install`
 
+The user will also need to set their environment variables. See the attached `.env.example` for an example. The environment variable file should be named `.env`. 
+
+If the user would like to access the testing suite, they should create an additional `.env.test` file, ensuring that the database names in both of these files are different.
+
+Now that the project is running, we can make CRUD requests to the routes specified in the routes files for artists and albums. 
+
 ## Usage
 
 Navigate to the root directory of the project in your terminal and run:
 
 `npm start`
-
-Now that the project is running, we can make CRUD requests to the routes specified in the routes files for artists and albums. 
 
 This will update the locally-hosted Artists and Albums tables.
 
