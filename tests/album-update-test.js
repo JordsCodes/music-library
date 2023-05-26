@@ -46,7 +46,7 @@ describe('Update Album', () => {
     });
   });
   describe('PATCH /albums/{id}', () => {
-    it('updates the album and returns the updated record', async () => {
+    it('updates the whole album and returns the updated record', async () => {
       const { status, body } = await request(app)
         .patch(`/albums/${album.id}`)
         .send({ name: 'Be Here Now', year: 1997, artistid: artist.id });
@@ -57,6 +57,20 @@ describe('Update Album', () => {
         id: album.id,
         name: 'Be Here Now',
         year: 1997,
+        artistid: artist.id,
+      });
+    });
+    it('partially updates the album and returns the updated record', async () => {
+      const { status, body } = await request(app)
+        .patch(`/albums/${album.id}`)
+        .send({ name: 'Be Here Now', artistid: artist.id });
+
+      expect(status).to.equal(200);
+
+      expect(body).to.deep.equal({
+        id: album.id,
+        name: 'Be Here Now',
+        year: 1994,
         artistid: artist.id,
       });
     });

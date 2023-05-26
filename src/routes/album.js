@@ -1,7 +1,6 @@
 const express = require('express');
 
 const {
-  createAlbum,
   readAllAlbums,
   readSingleAlbum,
   replaceAlbum,
@@ -11,16 +10,14 @@ const {
 
 const router = express.Router();
 
-router.route('/artists/:id/albums').post(createAlbum);
+router.route('/').get(readAllAlbums);
 
-router.route('/albums').get(readAllAlbums);
+router.route('/:id').get(readSingleAlbum);
 
-router.route('/albums/:id').get(readSingleAlbum);
+router.route('/:id').put(replaceAlbum);
 
-router.route('/albums/:id').put(replaceAlbum);
+router.route('/:id').patch(updateAlbum);
 
-router.route('/albums/:id').patch(updateAlbum);
-
-router.route('/albums/:id').delete(deleteAlbum);
+router.route('/:id').delete(deleteAlbum);
 
 module.exports = router;

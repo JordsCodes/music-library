@@ -5,12 +5,8 @@ const app = express();
 
 app.use(express.json());
 
-app.get('/', (_req, res) => {
-  res.send('Hello World!');
-});
+app.use('/artists', artistRouter);
 
-app.use('/', artistRouter);
-
-app.use('/', albumRouter);
+app.use('/albums', albumRouter);
 
 module.exports = app;

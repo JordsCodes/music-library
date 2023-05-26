@@ -38,10 +38,23 @@ describe('Update Artist', () => {
     });
   });
   describe('PATCH /artists/{id}', () => {
-    it('updates the artist and returns the updated record', async () => {
+    it('updates the whole artist and returns the updated record', async () => {
       const { status, body } = await request(app)
         .patch(`/artists/${artist.id}`)
-        .send({ name: 'something different', genre: 'rock' });
+        .send({ name: 'something different', genre: 'hip hop' });
+
+      expect(status).to.equal(200);
+
+      expect(body).to.deep.equal({
+        id: artist.id,
+        name: 'something different',
+        genre: 'hip hop',
+      });
+    });
+    it('partially updates the artist and returns the updated record', async () => {
+      const { status, body } = await request(app)
+        .patch(`/artists/${artist.id}`)
+        .send({ name: 'something different' });
 
       expect(status).to.equal(200);
 
