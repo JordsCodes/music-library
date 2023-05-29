@@ -45,4 +45,42 @@ describe('Update Album', () => {
       expect(body.message).to.equal('album 123456789 does not exist');
     });
   });
+  describe('PATCH /albums/{id}', () => {
+    it('updates the whole album and returns the updated record', async () => {
+      const { status, body } = await request(app)
+        .patch(`/albums/${album.id}`)
+        .send({ name: 'Be Here Now', year: 1997, artistid: artist.id });
+
+      expect(status).to.equal(200);
+
+      expect(body).to.deep.equal({
+        id: album.id,
+        name: 'Be Here Now',
+        year: 1997,
+        artistid: artist.id,
+      });
+    });
+    it('partially updates the album and returns the updated record', async () => {
+      const { status, body } = await request(app)
+        .patch(`/albums/${album.id}`)
+        .send({ name: 'Be Here Now', artistid: artist.id });
+
+      expect(status).to.equal(200);
+
+      expect(body).to.deep.equal({
+        id: album.id,
+        name: 'Be Here Now',
+        year: 1994,
+        artistid: artist.id,
+      });
+    });
+    it('returns a 404 if the album does not exist', async () => {
+      const { status, body } = await request(app)
+        .patch('/albums/999999999')
+        .send({ name: 'Reunion Tour Live', year: 2023 });
+
+      expect(status).to.equal(404);
+      expect(body.message).to.equal('album 999999999 does not exist');
+    });
+  });
 });
